@@ -5,16 +5,18 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import mechamorph.game.entity.Entity;
+import mechamorph.game.entity.Player;
 import mechamorph.game.render.Screen;
 import mechamorph.game.render.sprite.Sprite;
 import mechamorph.game.util.input.Keyboard;
+import mechamorph.game.util.math.Vector2i;
 
 public class Game extends Canvas implements Runnable{
 
@@ -82,14 +84,13 @@ public class Game extends Canvas implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	Entity player = new Player(new Vector2i(30, 30), Sprite.block);
 
 	public void update() {
-		if (keyboard.keys[KeyEvent.VK_LEFT]) x -= 2;
-		if (keyboard.keys[KeyEvent.VK_RIGHT]) x += 2;
-		if (keyboard.keys[KeyEvent.VK_UP]) y -= 2;
-		if (keyboard.keys[KeyEvent.VK_DOWN]) y += 2;
+		player.update(keyboard);
 	}
-
+	
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -102,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		screen.render();
 		//Will be handled in the screen class later
 		//Just using this for testing purposes
-		screen.renderSprite(x, y, Sprite.block);
+		player.render(screen);
 		
 		for (int i = 0; i < pixels.length; i++) 
 			pixels[i] = screen.pixels[i];
