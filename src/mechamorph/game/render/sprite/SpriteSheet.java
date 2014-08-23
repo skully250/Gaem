@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 	
+	public static SpriteSheet tiles = new SpriteSheet("res/tiles.png", 256);
+	
 	private String path;
 	public int[] pixels;
 	public int size;
@@ -29,5 +31,4 @@ public class SpriteSheet {
 			e.printStackTrace();
 		}
 	}
-
 }

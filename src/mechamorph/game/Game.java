@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -13,11 +14,12 @@ import javax.swing.JFrame;
 
 import mechamorph.game.render.Screen;
 import mechamorph.game.render.sprite.Sprite;
+import mechamorph.game.util.input.Keyboard;
 
 public class Game extends Canvas implements Runnable{
 
 	//Will change these later to be dynamic for resolution swapping
-	private int width = 300;
+	private int width = 400;
 	private int height = width / 16*9;
 	private int scale = 3;
 	
@@ -29,7 +31,13 @@ public class Game extends Canvas implements Runnable{
 	
 	private JFrame frame;
 	private Thread thread;
+	
 	private Screen screen;
+	private Keyboard keyboard;
+	
+	//Player pos testing
+	public int x = 30;
+	public int y = 30;
 	
 	//Possible wont be static later
 	public static boolean running = false;
@@ -49,8 +57,10 @@ public class Game extends Canvas implements Runnable{
 
 	public Game() {
 		image.setAccelerationPriority(1);
-		screen = new Screen(width, height);
 		setupFrame();
+		screen = new Screen(width, height);
+		keyboard = new Keyboard();
+		addKeyListener(keyboard);
 		start();
 	}
 
@@ -74,10 +84,12 @@ public class Game extends Canvas implements Runnable{
 	}
 
 	public void update() {
-
+		if (keyboard.keys[KeyEvent.VK_LEFT]) x -= 2;
+		if (keyboard.keys[KeyEvent.VK_RIGHT]) x += 2;
+		if (keyboard.keys[KeyEvent.VK_UP]) y -= 2;
+		if (keyboard.keys[KeyEvent.VK_DOWN]) y += 2;
 	}
 
-	Sprite block = new Sprite(16, 0x00ffff);
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -90,7 +102,7 @@ public class Game extends Canvas implements Runnable{
 		screen.render();
 		//Will be handled in the screen class later
 		//Just using this for testing purposes
-		screen.renderSprite(30, 30, block);
+		screen.renderSprite(x, y, Sprite.block);
 		
 		for (int i = 0; i < pixels.length; i++) 
 			pixels[i] = screen.pixels[i];

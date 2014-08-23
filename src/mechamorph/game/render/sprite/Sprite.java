@@ -1,7 +1,8 @@
 package mechamorph.game.render.sprite;
 
-
 public class Sprite {
+	
+	public static Sprite block = new Sprite(SpriteSheet.tiles, 0, 0, 32);
 	
 	public int[] pixels;
 	
@@ -14,6 +15,7 @@ public class Sprite {
 		this.y = y * size;
 		this.pixels = new int[size*size];
 		this.sheet = sheet;
+		load();
 	}
 	
 	public Sprite(int size, int colour) {

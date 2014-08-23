@@ -15,10 +15,9 @@ public class Screen {
 		this.pixels = new int[width*height];
 	}
 
-	Random random = new Random(0xffffff);
 	public void render() {
 		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = random.nextInt();
+			pixels[i] = 255;
 		}
 	}
 
@@ -28,6 +27,7 @@ public class Screen {
 			for (int x = 0; x < sprite.getWidth(); x++) {
 				int xPix = x + xp;
 				if (xPix < 0 || yPix < 0 || xPix > width || yPix > height) continue;
+				if (sprite.pixels[x + y * sprite.getWidth()] != 0xFFD67FFF)
 				pixels[xPix + yPix * width] = sprite.pixels[x + y * sprite.getWidth()];
 			}
 		}
