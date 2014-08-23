@@ -1,7 +1,5 @@
 package mechamorph.game.render;
 
-import java.util.Random;
-
 import mechamorph.game.render.sprite.Sprite;
 
 public class Screen {
@@ -16,8 +14,10 @@ public class Screen {
 	}
 
 	public void render() {
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = 255;
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = Sprite.grass.pixels[(x / 16) + (y / 16) * Sprite.grass.getWidth()];
+			}
 		}
 	}
 

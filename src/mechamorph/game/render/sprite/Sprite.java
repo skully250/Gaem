@@ -2,7 +2,8 @@ package mechamorph.game.render.sprite;
 
 public class Sprite {
 	
-	public static Sprite block = new Sprite(SpriteSheet.tiles, 0, 0, 32);
+	public static Sprite block = new Sprite(SpriteSheet.tiles, 0, 7, 32);
+	public static Sprite grass = new Sprite(SpriteSheet.tiles, 0, 0, 16);
 	
 	public int[] pixels;
 	
