@@ -8,9 +8,11 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Random;
 
 import javax.swing.JFrame;
+
+import mechamorph.game.render.Screen;
+import mechamorph.game.render.sprite.Sprite;
 
 public class Game extends Canvas implements Runnable{
 
@@ -27,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private JFrame frame;
 	private Thread thread;
+	private Screen screen;
 	
 	//Possible wont be static later
 	public static boolean running = false;
@@ -46,6 +49,7 @@ public class Game extends Canvas implements Runnable{
 
 	public Game() {
 		image.setAccelerationPriority(1);
+		screen = new Screen(width, height);
 		setupFrame();
 		start();
 	}
@@ -73,7 +77,7 @@ public class Game extends Canvas implements Runnable{
 
 	}
 
-	Random random = new Random(0xffffff);
+	Sprite block = new Sprite(16, 0x00ffff);
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -83,8 +87,13 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		for (int i = 0; i < pixels.length; i++)
-			pixels[i] = random.nextInt();
+		screen.render();
+		//Will be handled in the screen class later
+		//Just using this for testing purposes
+		screen.renderSprite(30, 30, block);
+		
+		for (int i = 0; i < pixels.length; i++) 
+			pixels[i] = screen.pixels[i];
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
