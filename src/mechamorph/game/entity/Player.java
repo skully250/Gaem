@@ -1,7 +1,5 @@
 package mechamorph.game.entity;
 
-import java.awt.event.KeyEvent;
-
 import mechamorph.game.render.Screen;
 import mechamorph.game.render.sprite.Sprite;
 import mechamorph.game.util.input.Keyboard;
@@ -18,10 +16,10 @@ public class Player extends Entity {
 	}
 	
 	public void update(Keyboard keyboard) {
-		if (keyboard.keys[KeyEvent.VK_LEFT]) pos.setX(pos.getX() + -2);
-		if (keyboard.keys[KeyEvent.VK_RIGHT]) pos.setX(pos.getX() + 2);
-		if (keyboard.keys[KeyEvent.VK_UP]) pos.setY(pos.getY() + -2);
-		if (keyboard.keys[KeyEvent.VK_DOWN]) pos.setY(pos.getY() + 2);
+		if (keyboard.isKeyDown(Keyboard.LEFT)) move("X", -2);
+		if (keyboard.isKeyDown(Keyboard.RIGHT)) move("X", 2);
+		if (keyboard.isKeyDown(Keyboard.UP)) move("Y", -2);
+		if (keyboard.isKeyDown(Keyboard.DOWN)) move("Y", 2);
 	}
 
 }

@@ -4,13 +4,14 @@ import mechamorph.game.render.sprite.Sprite;
 
 public class Screen {
 
-	private int width, height;
+	private int width, height, xOffset, yOffset;
 	public int[] pixels;
 
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.pixels = new int[width*height];
+		this.xOffset = this.yOffset = 0;
 	}
 
 	public void render() {
@@ -20,8 +21,17 @@ public class Screen {
 			}
 		}
 	}
+	
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
+	}
 
-	public void renderSprite(int xp, int yp, Sprite sprite) {
+	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
+		if (fixed) {
+			xp -= xOffset;
+			yp -= yOffset;
+		}
 		for (int y = 0; y < sprite.getHeight(); y++) {
 			int yPix = y + yp;
 			for (int x = 0; x < sprite.getWidth(); x++) {

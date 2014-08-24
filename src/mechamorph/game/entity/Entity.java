@@ -19,8 +19,17 @@ public class Entity {
 		
 	}
 	
+	public void move(String axis, int amount) {
+		if (axis == "x" || axis == "X") {
+			pos.setX(pos.getX() + amount);
+			//Automatically asuming its y if its not x
+		} else {
+			pos.setY(pos.getY() + amount);
+		}
+	}
+	
 	public void render(Screen screen) {
-		screen.renderSprite(pos.getX(), pos.getY(), sprite);
+		screen.renderSprite(pos.getX(), pos.getY(), sprite, false);
 	}
 
 }
