@@ -19,7 +19,8 @@ import mechamorph.game.util.input.Keyboard;
 import mechamorph.game.util.math.Vector2i;
 
 public class Game extends Canvas implements Runnable{
-
+	private static final long serialVersionUID = 1L;
+	
 	//Will change these later to be dynamic for resolution swapping
 	private int width = 400;
 	private int height = width / 16*9;

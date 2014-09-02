@@ -16,10 +16,10 @@ public class Player extends Entity {
 	}
 	
 	public void update(Keyboard keyboard) {
-		if (keyboard.isKeyDown(Keyboard.LEFT)) move("X", -2);
-		if (keyboard.isKeyDown(Keyboard.RIGHT)) move("X", 2);
-		if (keyboard.isKeyDown(Keyboard.UP)) move("Y", -2);
-		if (keyboard.isKeyDown(Keyboard.DOWN)) move("Y", 2);
+		if (keyboard.isKeyDown(Keyboard.LEFT)) move(-2, 0);
+		if (keyboard.isKeyDown(Keyboard.RIGHT)) move(2, 0);
+		if (keyboard.isKeyDown(Keyboard.UP)) move(0, -2);
+		if (keyboard.isKeyDown(Keyboard.DOWN)) move(0, 2);
 	}
 
 }
