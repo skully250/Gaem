@@ -11,37 +11,39 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-import mechamorph.game.entity.Entity;
 import mechamorph.game.entity.Player;
 import mechamorph.game.render.Screen;
 import mechamorph.game.render.sprite.Sprite;
 import mechamorph.game.util.input.Keyboard;
 import mechamorph.game.util.math.Vector2i;
+import mechamorph.game.world.level.Level;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
-	
+
 	//Will change these later to be dynamic for resolution swapping
 	private int width = 400;
 	private int height = width / 16*9;
 	private int scale = 3;
-	
+
 	//Might make graphics environment its own variable
 	//Might remove graphics configurations and accelerations altogether later
 	GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
 	private BufferedImage image = gc.createCompatibleImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-	
+
 	private JFrame frame;
 	private Thread thread;
-	
+
+	private Level level;
 	private Screen screen;
 	private Keyboard keyboard;
-	
+	private Player player;
+
 	//Player pos testing
 	public int x = 30;
 	public int y = 30;
-	
+
 	//Possible wont be static later
 	public static boolean running = false;
 
@@ -61,9 +63,12 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		image.setAccelerationPriority(1);
 		setupFrame();
+		level = new Level(32, 32, "res/map.png");
+		//level = new Level(256, 256, Tile.getTile((byte)1));
 		screen = new Screen(width, height);
 		keyboard = new Keyboard();
 		addKeyListener(keyboard);
+		player = new Player(new Vector2i(16, 16), Sprite.player, level);
 		start();
 	}
 
@@ -85,35 +90,39 @@ public class Game extends Canvas implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
-	Entity player = new Player(new Vector2i(30, 30), Sprite.block);
 
 	public void update() {
 		player.update(keyboard);
 	}
-	
+
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
-		
+
 		Graphics g = bs.getDrawGraphics();
-		
-		screen.render();
-		//Will be handled in the screen class later
-		//Just using this for testing purposes
+
+		screen.clear();
+
+		int xScroll = player.getX() - screen.width / 2 + 16;
+		int yScroll = player.getY() - screen.height / 2 + 16;
+		if (xScroll < 0) xScroll = 0;
+		if (yScroll < 0) yScroll = 0;
+		if (xScroll > level.width) xScroll = level.width;
+		if (yScroll > level.height) yScroll = level.height; 
+		level.render(xScroll, yScroll, screen);
+
 		player.render(screen);
-		
+
 		for (int i = 0; i < pixels.length; i++) 
 			pixels[i] = screen.pixels[i];
-		
+
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		
+
 		g.dispose();
 		bs.show();
-		
 	}
 
 	public void run() {

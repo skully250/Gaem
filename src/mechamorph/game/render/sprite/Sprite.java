@@ -3,13 +3,17 @@ package mechamorph.game.render.sprite;
 public class Sprite {
 	
 	//Basic sprites, need better ones :c
-	public static Sprite block = new Sprite(SpriteSheet.tiles, 0, 7, 32);
+	
+	public static Sprite player = new Sprite(SpriteSheet.tiles, 0, 7, 32);
 	public static Sprite grass = new Sprite(SpriteSheet.tiles, 0, 0, 16);
+	public static Sprite cobble = new Sprite(SpriteSheet.tiles, 1, 0, 16);
+	public static Sprite SBrick = new Sprite(SpriteSheet.tiles, 0, 1, 16);
 	
 	public int[] pixels;
 	
-	private int x, y, width, height, size;
-	private SpriteSheet sheet;
+	public int width, height, size;
+	protected int x, y;
+	protected SpriteSheet sheet;
 	
 	/**
 	 * Creates a new sprite, using a Spritesheet and the co-ordinates provided
@@ -25,6 +29,26 @@ public class Sprite {
 		this.pixels = new int[size*size];
 		this.sheet = sheet;
 		load();
+	}
+	
+	public Sprite(SpriteSheet sheet, int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.size = 0;
+		this.pixels = new int[width * height];
+		this.sheet = sheet;
+		loadIrr();
+	}
+	
+	public Sprite(SpriteSheet sheet, int x, int y, int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.size = 0;
+		this.x = x * width;
+		this.y = y * height;
+		this.pixels = new int[width * height];
+		this.sheet = sheet;
+		loadIrr();
 	}
 	
 	/**
@@ -66,6 +90,15 @@ public class Sprite {
 		for (int y = 0; y < size; y++) {
 			for (int x = 0; x < size; x++) {
 				pixels[x + y * size] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.size];
+			}
+		}
+	}
+	
+	//Will change load method later, just for easability right now
+	public void loadIrr() {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.width];
 			}
 		}
 	}

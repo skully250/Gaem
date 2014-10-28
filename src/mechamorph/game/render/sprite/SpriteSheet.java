@@ -12,12 +12,20 @@ public class SpriteSheet {
 	
 	private String path;
 	public int[] pixels;
-	public int size;
+	public int size, width, height;
 	
 	public SpriteSheet(String path, int size) {
 		this.path = path;
-		this.size = size;
+		this.width = this.height = this.size = size;
 		this.pixels = new int[size*size];
+		load();
+	}
+	
+	public SpriteSheet(String path, int width, int height) {
+		this.path = path;
+		this.width = width;
+		this.height = height;
+		this.pixels = new int[width * height];
 		load();
 	}
 	
