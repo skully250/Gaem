@@ -19,5 +19,4 @@ public class Mob extends Entity {
 	public void attack(Mob mob) {
 		mob.damage(atk);
 	}
-	
 }

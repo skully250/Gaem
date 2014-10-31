@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 
 import mechamorph.game.entity.Player;
 import mechamorph.game.render.Screen;
+import mechamorph.game.render.gui.Text;
 import mechamorph.game.render.sprite.Sprite;
 import mechamorph.game.util.input.Keyboard;
-import mechamorph.game.util.math.Vector2i;
 import mechamorph.game.world.level.Level;
 
 public class Game extends Canvas implements Runnable{
@@ -37,12 +37,9 @@ public class Game extends Canvas implements Runnable{
 
 	private Level level;
 	private Screen screen;
+	private Text text;
 	private Keyboard keyboard;
 	private Player player;
-
-	//Player pos testing
-	public int x = 30;
-	public int y = 30;
 
 	//Possible wont be static later
 	public static boolean running = false;
@@ -68,7 +65,8 @@ public class Game extends Canvas implements Runnable{
 		screen = new Screen(width, height);
 		keyboard = new Keyboard();
 		addKeyListener(keyboard);
-		player = new Player(new Vector2i(16, 16), Sprite.player, level);
+		text = new Text(screen);
+		player = new Player(level.spawnPoint, Sprite.player, level);
 		start();
 	}
 
@@ -108,16 +106,24 @@ public class Game extends Canvas implements Runnable{
 
 		int xScroll = player.getX() - screen.width / 2 + 16;
 		int yScroll = player.getY() - screen.height / 2 + 16;
+
+		int xBorder = level.width * 3 + 16;
+		int yBorder = level.height * 9;
+
 		if (xScroll < 0) xScroll = 0;
 		if (yScroll < 0) yScroll = 0;
-		if (xScroll > level.width) xScroll = level.width;
-		if (yScroll > level.height) yScroll = level.height; 
+		if (xScroll >= xBorder) xScroll = xBorder;
+		if (yScroll >= yBorder) yScroll = yBorder; 
 		level.render(xScroll, yScroll, screen);
 
 		player.render(screen);
+		//text.draw("Hello world", width / 2 - 32, height / 2, 0x00FF00);
 
-		for (int i = 0; i < pixels.length; i++) 
-			pixels[i] = screen.pixels[i];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = screen.pixels[y][x];
+			}
+		}
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 

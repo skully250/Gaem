@@ -5,14 +5,17 @@ import java.io.FileInputStream;
 
 import javax.imageio.ImageIO;
 
+import mechamorph.game.entity.Entity;
 import mechamorph.game.render.Screen;
+import mechamorph.game.util.math.Vector2i;
 import mechamorph.game.world.tile.Tile;
 
 public class Level {
 
 	public int width, height;
 	private int[] pixels;
-	public byte[][] tiles;
+	public Tile[][] tiles;
+	public Vector2i spawnPoint;
 	
 	private String path;
 
@@ -20,14 +23,23 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		this.path = path;
-		this.tiles = new byte[width][height];
+		this.tiles = new Tile[height][width];
 		loadLevel();
 	}
 	
 	public Level(int width, int height, Tile tile) {
 		this.width = width;
 		this.height = height;
-		this.tiles = new byte[width][height];
+		this.tiles = new Tile[height][width];
+		setLevel(tile);
+	}
+	
+	public void setLevel(Tile tile) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				tiles[y][x] = tile;
+			}
+		}
 	}
 
 	public void loadLevel() {
@@ -40,11 +52,17 @@ public class Level {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		colorGenLevel();
+		generateLevel();
+	}
+	
+	public boolean collides(int xPos, int yPos, Entity entity) {
+		if (xPos < 0 || yPos < 0 || xPos >= width || yPos >= height) return true;
+		else return tiles[yPos][xPos].collides(entity);
 	}
 	
 	public Tile getTile(int xTile, int yTile) {
-		return Tile.getTile(tiles[xTile][yTile]);
+		if (xTile < 0 || yTile < 0 || xTile >= width || yTile >= height) return Tile.getTile((byte)0);
+		return tiles[yTile][xTile];
 	}
 	
 	public void render(int xScroll, int yScroll, Screen screen) {
@@ -59,21 +77,36 @@ public class Level {
 				}
 			}
 	}
-
+	
 	public void generateLevel() {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				tiles[x][y] = Tile.getTileID(tiles[x][y]);
-			}
-		}
-	}
-	
-	public void colorGenLevel() {
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				if (pixels[x + y * width] == 0x00000000) tiles[x][y] = 1;
-				if (pixels[x + y * width] == 0xffffffff) tiles[x][y] = 3;
-				else tiles[x][y] = 2;
+				tiles[y][x] = Tile.grass;
+				switch(pixels[x + y * width]) {
+				//Color decision: ARGB
+				case 0xff000000:
+					tiles[y][x] = Tile.stone;
+					tiles[y][x].setPos(x, y);
+					break;
+				case 0xffffff00:
+					tiles[y][x] = Tile.SBrick;
+					spawnPoint = new Vector2i(x*16, y*16);
+					System.out.println("Spawnpoint at " + spawnPoint.getX() + " " + spawnPoint.getY());
+					tiles[y][x].setPos(x, y);
+					break;
+				case 0xffff0000:
+					tiles[y][x] = Tile.SBrick;
+					tiles[y][x].setPos(x, y);
+					break;
+				case 0xff800000:
+					tiles[y][x] = Tile.SBrick2;
+					tiles[y][x].setPos(x, y);
+					break;
+				case 0xffffffff:
+					tiles[y][x] = Tile.grass;
+					tiles[y][x].setPos(x, y);
+					break;
+				}
 			}
 		}
 	}

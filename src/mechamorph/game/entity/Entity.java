@@ -28,6 +28,14 @@ public class Entity {
 
 	}
 
+	public int getX() {
+		return pos.getX();
+	}
+
+	public int getY() {
+		return pos.getY();
+	}
+
 	/**
 	 * Moves the Entity by the specified X and Y co-ordinates
 	 * provided and updates accordingly 
@@ -43,14 +51,34 @@ public class Entity {
 		if (newX < 0) newX = 0;
 		if (newY < 0) newY = 0;
 
-		//if (level.getTile(newX, newY).blocks) {
-			pos.setX(newX);
-			pos.setY(newY);
-		//}
+
+
+		//if(collision(newX, newY))
+		pos.setPos(newX, newY);
+		//else
+		//return;
+	}
+
+	/**
+	 * Checks the tile that the player is on aswell as the tiles around them
+	 * to see if a solid connection has been made and returns a boolean
+	 * based on whether a collision with tiles around the x and y co-ordinates
+	 * have been made
+	 * @param xa The x Co-ordinate to scan
+	 * @param ya The y Co-ordinate to scan
+	 * @return Whether a collision is happening
+	 */
+	private boolean collision(int xa, int ya) {
+		boolean solid = false;
+		for (int c = 0; c < 4; c++) {
+			int xt = ((getX() + xa) + c % 2 * 14 - 8) / 16;
+			int yt = ((getY() + ya) + c / 2 * 12 + 3) / 16;
+			if (level.getTile(xt, yt).blocks) solid = true;
+		}
+		return solid;
 	}
 
 	public void render(Screen screen) {
 		screen.renderSprite(pos.getX(), pos.getY(), sprite, false);
 	}
-
 }
