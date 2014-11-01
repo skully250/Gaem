@@ -1,8 +1,8 @@
-package mechamorph.game.render;
+package mechamorph.engine.render;
 
-import mechamorph.game.render.gui.Gui;
-import mechamorph.game.render.sprite.Sprite;
-import mechamorph.game.world.tile.Tile;
+import mechamorph.engine.level.tile.Tile;
+import mechamorph.engine.render.gui.Gui;
+import mechamorph.engine.render.sprite.Sprite;
 
 public class Screen {
 

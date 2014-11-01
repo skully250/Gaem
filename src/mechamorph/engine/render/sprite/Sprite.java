@@ -1,4 +1,4 @@
-package mechamorph.game.render.sprite;
+package mechamorph.engine.render.sprite;
 
 public class Sprite {
 

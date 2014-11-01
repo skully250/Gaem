@@ -1,9 +1,9 @@
-package mechamorph.game.world.tile;
+package mechamorph.engine.level.tile;
 
-import mechamorph.game.entity.Entity;
-import mechamorph.game.render.Screen;
-import mechamorph.game.render.sprite.Sprite;
-import mechamorph.game.util.math.Vector2i;
+import mechamorph.engine.entity.Entity;
+import mechamorph.engine.render.Screen;
+import mechamorph.engine.render.sprite.Sprite;
+import mechamorph.engine.util.math.Vector2i;
 
 public class Tile {
 

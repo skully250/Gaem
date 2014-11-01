@@ -11,12 +11,12 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import mechamorph.engine.level.Level;
+import mechamorph.engine.render.Screen;
+import mechamorph.engine.render.gui.Text;
+import mechamorph.engine.render.sprite.Sprite;
+import mechamorph.engine.util.input.Keyboard;
 import mechamorph.game.entity.Player;
-import mechamorph.game.render.Screen;
-import mechamorph.game.render.gui.Text;
-import mechamorph.game.render.sprite.Sprite;
-import mechamorph.game.util.input.Keyboard;
-import mechamorph.game.world.level.Level;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;

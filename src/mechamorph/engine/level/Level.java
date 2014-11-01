@@ -1,14 +1,14 @@
-package mechamorph.game.world.level;
+package mechamorph.engine.level;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 
 import javax.imageio.ImageIO;
 
-import mechamorph.game.entity.Entity;
-import mechamorph.game.render.Screen;
-import mechamorph.game.util.math.Vector2i;
-import mechamorph.game.world.tile.Tile;
+import mechamorph.engine.entity.Entity;
+import mechamorph.engine.level.tile.Tile;
+import mechamorph.engine.render.Screen;
+import mechamorph.engine.util.math.Vector2i;
 
 public class Level {
 

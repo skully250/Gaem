@@ -1,4 +1,4 @@
-package mechamorph.game.util.math;
+package mechamorph.engine.util.math;
 
 public class Vector2i {
 	

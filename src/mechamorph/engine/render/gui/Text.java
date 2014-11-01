@@ -1,7 +1,7 @@
-package mechamorph.game.render.gui;
+package mechamorph.engine.render.gui;
 
-import mechamorph.game.render.Screen;
-import mechamorph.game.render.sprite.SpriteSheet;
+import mechamorph.engine.render.Screen;
+import mechamorph.engine.render.sprite.SpriteSheet;
 
 public class Text {
 	

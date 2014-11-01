@@ -2,13 +2,14 @@ package mechamorph.game.entity;
 
 import java.awt.event.KeyEvent;
 
-import mechamorph.game.render.Screen;
-import mechamorph.game.render.gui.Gui;
-import mechamorph.game.render.sprite.Sprite;
-import mechamorph.game.util.Sound;
-import mechamorph.game.util.input.Keyboard;
-import mechamorph.game.util.math.Vector2i;
-import mechamorph.game.world.level.Level;
+import mechamorph.engine.entity.Mob;
+import mechamorph.engine.level.Level;
+import mechamorph.engine.render.Screen;
+import mechamorph.engine.render.gui.Gui;
+import mechamorph.engine.render.sprite.Sprite;
+import mechamorph.engine.util.Sound;
+import mechamorph.engine.util.input.Keyboard;
+import mechamorph.engine.util.math.Vector2i;
 
 public class Player extends Mob {
 

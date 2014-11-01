@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 
 import javax.imageio.ImageIO;
 
-import mechamorph.game.render.Screen;
-import mechamorph.game.world.tile.Tile;
+import mechamorph.engine.level.tile.Tile;
+import mechamorph.engine.render.Screen;
 
 public class World {
 

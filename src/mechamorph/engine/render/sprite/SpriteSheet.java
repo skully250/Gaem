@@ -1,4 +1,4 @@
-package mechamorph.game.render.sprite;
+package mechamorph.engine.render.sprite;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;

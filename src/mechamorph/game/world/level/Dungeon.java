@@ -1,5 +1,7 @@
 package mechamorph.game.world.level;
 
+import mechamorph.engine.level.Level;
+
 public class Dungeon extends Level {
 	
 	public Dungeon(int width, int height, String path) {

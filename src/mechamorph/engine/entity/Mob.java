@@ -1,8 +1,8 @@
-package mechamorph.game.entity;
+package mechamorph.engine.entity;
 
-import mechamorph.game.render.sprite.Sprite;
-import mechamorph.game.util.math.Vector2i;
-import mechamorph.game.world.level.Level;
+import mechamorph.engine.level.Level;
+import mechamorph.engine.render.sprite.Sprite;
+import mechamorph.engine.util.math.Vector2i;
 
 public class Mob extends Entity {
 	

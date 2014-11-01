@@ -1,4 +1,4 @@
-package mechamorph.game.util.input;
+package mechamorph.engine.util.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,4 +1,4 @@
-package mechamorph.game.util;
+package mechamorph.engine.util;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
